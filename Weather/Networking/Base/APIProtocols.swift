@@ -51,8 +51,8 @@ internal protocol APIManager {
 
     var requestFactory: APIRequestFactory { get }
     var requestExecuter: APIRequestExecuter { get }
-    var responseValidator: APIResponseValidator { get }
     var errorChecker: APIErrorChecker { get }
+    var responseValidator: APIResponseValidator { get }
 
 }
 
@@ -74,15 +74,15 @@ internal protocol APIRequestExecuter {
 
 }
 
-internal protocol APIResponseValidator {
-
-    func validate(_ data: Data?) -> Data?
-
-}
-
 internal protocol APIErrorChecker {
 
     func checkError(from data: Data?) throws
+
+}
+
+internal protocol APIResponseValidator {
+
+    func validate(_ data: Data?) -> Data?
 
 }
 
@@ -100,15 +100,16 @@ extension APIManager {
                 return
             }
 
-            guard let validatedData = self.responseValidator.validate(data) else {
-                completion?(.failure(APIError.dataValidationFailed))
-                return
-            }
-
             do {
                 try self.errorChecker.checkError(from: data)
             } catch(let error) {
                 completion?(.failure(error))
+                return
+            }
+
+            guard let validatedData = self.responseValidator.validate(data) else {
+                completion?(.failure(APIError.dataValidationFailed))
+                return
             }
 
             do {

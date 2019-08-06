@@ -18,7 +18,12 @@ struct DarkSkyAPIManager: APIManager {
 
 }
 
-enum DarkSkyError {
+enum DarkSkyError: Error {
+
+    case unknown
+    case noData
+    case didFailedParseJson
+    case apiError(code: Int, description: String)
 
 }
 
@@ -60,7 +65,31 @@ struct DarkSkyResponseValidator: APIResponseValidator {
 struct DarkSkyErrorChecker: APIErrorChecker {
 
     func checkError(from data: Data?) throws {
+        guard let data = data else {
+            throw DarkSkyError.noData
+        }
 
+        if String(data: data, encoding: .utf8) == "Not Found\n" {
+            throw DarkSkyError.unknown
+        }
+
+        let decoder = JSONDecoder()
+        if let errorResponse = try? decoder.decode(DarkSkyErrorResponse.self, from: data) {
+            throw DarkSkyError.apiError(code: errorResponse.code,
+                                        description: errorResponse.description)
+        }
+    }
+
+}
+
+private struct DarkSkyErrorResponse: Codable {
+
+    var code: Int
+    var description: String
+
+    private enum CodingKeys: String, CodingKey {
+        case code
+        case description = "error"
     }
 
 }
