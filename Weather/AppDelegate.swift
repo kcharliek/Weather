@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - private
 
     private func setupStartRootViewController() {
+        self.window?.makeKeyAndVisible()
         let mainVC = MainViewController.loadFromNib()
         self.window?.rootViewController = mainVC
     }

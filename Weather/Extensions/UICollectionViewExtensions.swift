@@ -15,6 +15,11 @@ extension UICollectionView {
         self.register(cellClass, forCellWithReuseIdentifier: cellClass.typeName)
     }
 
+    func registerNib(_ cellClass: UICollectionViewCell.Type) {
+        let nib = UINib(nibName: cellClass.typeName, bundle: nil)
+        self.register(nib, forCellWithReuseIdentifier: cellClass.typeName)
+    }
+
     func dequeueReusableCell<CollectionViewCell: UICollectionViewCell>(_ cellClass: CollectionViewCell.Type, for indexPath: IndexPath) -> CollectionViewCell {
         return self.dequeueReusableCell(withReuseIdentifier: cellClass.typeName, for: indexPath) as! CollectionViewCell
     }

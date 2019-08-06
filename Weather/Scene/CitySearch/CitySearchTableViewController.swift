@@ -12,6 +12,10 @@ import MapKit
 
 class CitySearchTableViewController: UITableViewController {
 
+    // MARK: - internal
+
+    internal var didSelectPlacemarkAction: ((Placemark) -> Void)?
+
     // MARK: - life cycle
 
     override func viewDidLoad() {
@@ -50,7 +54,14 @@ extension CitySearchTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard
+            let model = self.matchingItems[safe: indexPath.row],
+            let placemark = Placemark.make(mapItem: model)
+        else {
+            return
+        }
 
+        self.didSelectPlacemarkAction?(placemark)
     }
 
 }

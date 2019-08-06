@@ -13,8 +13,10 @@ class HourlyWeatherCollectionViewController: UICollectionViewController {
 
     // MARK: - internal
 
-    internal func setModels(_ models: [Weather]) {
+    internal func setModels(_ models: [Weather], placemark: Placemark?) {
         self.models = models
+        self.placemark = placemark
+        self.collectionView.reloadData()
     }
 
     // MARK: - life cycle
@@ -27,31 +29,40 @@ class HourlyWeatherCollectionViewController: UICollectionViewController {
     // MARK: - private
 
     private var models: [Weather] = []
+    private var placemark: Placemark?
 
     private func setupController() {
+        self.collectionView.backgroundColor = .clear
         self.registerCollectionViewCell()
+        (self.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = .horizontal
+        self.collectionView.showsHorizontalScrollIndicator = false
+        self.collectionView.showsVerticalScrollIndicator = false
     }
 
     private func registerCollectionViewCell() {
-        self.collectionView.register(HourlyWeatherCollectionViewCell.self)
+        self.collectionView.registerNib(HourlyWeatherCollectionViewCell.self)
     }
 
 }
 
-extension HourlyWeatherCollectionViewController {
+extension HourlyWeatherCollectionViewController: UICollectionViewDelegateFlowLayout {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.models.count
+        return min(self.models.count, 12)
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(HourlyWeatherCollectionViewCell.self, for: indexPath)
-        cell.setModel(self.models[safe: indexPath.row])
+        cell.setModel(self.models[safe: indexPath.row], placemark: self.placemark)
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 80, height: collectionView.frame.height)
     }
 
 }

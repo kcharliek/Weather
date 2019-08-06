@@ -6,69 +6,35 @@
 //  Copyright © 2019 ChanHee Kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 struct DarkSkyWeather: Weather {
 
     var latitude: Double?
-
     var longitude: Double?
-
     var time: Double
-
     var summary: String
-
     var icon: String
-
     var temperature: Double?
-
     var temperatureLow: Double?
-
     var temperatureHigh: Double?
-
     var humidity: Double
-
     var precipProbability: Double
-
     var sunriseTime: Double?
-
     var sunsetTime: Double?
-
     var windSpeed: Double
-
     var windBearing: Double
-
     var pressure: Double
-
     var visibility: Double
-
     var uvIndex: Double
 
+    func fetchIconURLString() -> String {
+        let base = "https://darksky.net"
+        let path = "/images/weather-icons"
+        let ext = ".png"
 
-    // API에 맞게 decode
-    private enum CodingKeys: String, CodingKey {
-
-        case latitude
-        case longitude
-        case time
-        case summary
-        case icon
-        case temperature
-        case humidity
-        case precipProbability
-        case sunriseTime
-        case sunsetTime
-        case windSpeed
-        case windBearing
-        case pressure
-        case visibility
-        case uvIndex
-
+        return base + path + "/" + self.icon + ext
     }
-
-//    init(from decoder: Decoder) throws {
-//
-//    }
 
 }

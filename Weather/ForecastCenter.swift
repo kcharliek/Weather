@@ -11,7 +11,8 @@ import Foundation
 
 private enum Constant {
 
-    static let cacheExpirationTime: TimeInterval = 60
+    static let cacheExpirationTime: TimeInterval = 60 * 2
+    static let api: ForecastAPI.Type = DarkSkyAPI.self
 
 }
 
@@ -51,12 +52,7 @@ internal class ForecastCenter {
             return nil
         }
 
-        guard let coordinate = placemark.coordinate else {
-            completion(.failure(ForecastCenterError.invalidPlacemark))
-            return nil
-        }
-
-        return self.api.requestForecast(at: coordinate) { [weak self] (result) in
+        return self.api.requestForecast(at: placemark.coordinate) { [weak self] (result) in
             guard let self = self else {
                 completion(.failure(ForecastCenterError.weakSelfViolation))
                 return
@@ -70,7 +66,7 @@ internal class ForecastCenter {
     // MARK: - private
 
     private var cachedForecast: [Placemark: Forecast] = [:]
-    private var api: ForecastAPI.Type = DarkSkyAPI.self
+    private var api: ForecastAPI.Type = Constant.api
 
     private init() { }
 

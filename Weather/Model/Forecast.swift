@@ -13,7 +13,7 @@ internal protocol Forecast: Decodable {
 
     var timestamp: Date { get }
     var current: Weather { get }
-    var daily: [Weather] { get }
+    var weekly: [Weather] { get }
     var hourly: [Weather] { get }
     var coordinate: Coordinate { get }
 

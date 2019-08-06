@@ -15,18 +15,18 @@ internal struct DarkSkyForecast: Forecast {
 
     var timestamp: Date
     var current: Weather
-    var daily: [Weather]
+    var weekly: [Weather]
     var hourly: [Weather]
     var coordinate: Coordinate
 
     // MARK: - coding keys
 
-    private enum CodingKeys: CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case longitude
         case latitude
         case currently
         case hourly
-        case daily
+        case weekly = "daily"
     }
 
     private enum DataCodingKeys: CodingKey {
@@ -40,10 +40,12 @@ internal struct DarkSkyForecast: Forecast {
 
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.current = try container.decode(DarkSkyWeather.self, forKey: .currently)
+        let weeklyDataContainer = try container.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .weekly)
+        self.weekly = try weeklyDataContainer.decode([DarkSkyWeather].self, forKey: .data)
 
-        let dailyDataContainer = try container.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .daily)
-        self.daily = try dailyDataContainer.decode([DarkSkyWeather].self, forKey: .data)
+        self.current = try container.decode(DarkSkyWeather.self, forKey: .currently)
+        self.current.sunriseTime = self.weekly.first?.sunriseTime
+        self.current.sunsetTime = self.weekly.first?.sunsetTime
 
         let hourlyDataContainer = try container.nestedContainer(keyedBy: DataCodingKeys.self, forKey: .hourly)
         self.hourly = try hourlyDataContainer.decode([DarkSkyWeather].self, forKey: .data)

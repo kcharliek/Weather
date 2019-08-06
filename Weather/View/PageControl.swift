@@ -19,7 +19,6 @@ private enum Constant {
 
 }
 
-
 internal class WeatherPageControl: UIView {
 
     // MARK: - internal
@@ -90,6 +89,8 @@ internal class WeatherPageControl: UIView {
         self.stackView.alignment = .center
         self.stackView.spacing = Constant.spacing
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.selectPage(self.currentPage)
     }
 
     private func createPage(_ index: Int) -> UIView {

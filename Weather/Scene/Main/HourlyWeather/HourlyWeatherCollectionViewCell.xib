@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourlyWeatherCollectionViewCell" id="gTV-IL-0wX" customClass="HourlyWeatherCollectionViewCell" customModule="Weather" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="129" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="129" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwc-Tr-jIF" customClass="DateLabel" customModule="Weather" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="129" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Fv3-34-6pg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8cz-K0-4VH">
+                        <rect key="frame" x="0.0" y="35" width="129" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="8bI-OJ-M23"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-zy-AfZ" customClass="TemperatureLabel" customModule="Weather" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="65" width="129" height="25"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="cwc-Tr-jIF" secondAttribute="trailing" id="0QH-WD-NoF"/>
+                <constraint firstItem="sX3-zy-AfZ" firstAttribute="top" secondItem="8cz-K0-4VH" secondAttribute="bottom" constant="10" id="BaD-ik-mSu"/>
+                <constraint firstItem="sX3-zy-AfZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DWl-BJ-Fqb"/>
+                <constraint firstItem="8cz-K0-4VH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IcP-iE-dzK"/>
+                <constraint firstAttribute="bottom" secondItem="sX3-zy-AfZ" secondAttribute="bottom" priority="250" id="R32-4f-Zjt"/>
+                <constraint firstItem="8cz-K0-4VH" firstAttribute="top" secondItem="cwc-Tr-jIF" secondAttribute="bottom" constant="10" id="RyY-yb-g36"/>
+                <constraint firstAttribute="trailing" secondItem="sX3-zy-AfZ" secondAttribute="trailing" id="VSN-P4-Zoe"/>
+                <constraint firstItem="cwc-Tr-jIF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Y0s-mx-imc"/>
+                <constraint firstAttribute="trailing" secondItem="8cz-K0-4VH" secondAttribute="trailing" id="fD5-J0-cx1"/>
+                <constraint firstItem="sX3-zy-AfZ" firstAttribute="height" secondItem="cwc-Tr-jIF" secondAttribute="height" id="n20-Ba-eHW"/>
+                <constraint firstItem="cwc-Tr-jIF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="q2l-1i-pzc"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="129" height="110"/>
+            <connections>
+                <outlet property="dateLabel" destination="cwc-Tr-jIF" id="dwX-m7-D3u"/>
+                <outlet property="iconImageView" destination="8cz-K0-4VH" id="cPW-xH-Z4M"/>
+                <outlet property="temperatureLabel" destination="sX3-zy-AfZ" id="e1H-VX-nZy"/>
+            </connections>
+            <point key="canvasLocation" x="134.05797101449275" y="147.99107142857142"/>
+        </collectionViewCell>
+    </objects>
+</document>

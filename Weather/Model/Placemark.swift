@@ -8,8 +8,16 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
-typealias Placemark = CLPlacemark
+
+struct Placemark: Hashable, Codable, Equatable {
+
+    var coordinate: Coordinate
+    var name: String
+    var timeZone: TimeZone
+
+}
 
 enum PlacemarkError: Error {
 
@@ -28,7 +36,7 @@ extension Placemark {
             if let error = error {
                 completion(.failure(error))
             }
-            guard let placemark = placemarks?.first else {
+            guard let placemark = Placemark.make(clPlacemark: placemarks?.first) else {
                 completion(.failure(PlacemarkError.invalidPlacemark))
                 return
             }
@@ -36,12 +44,32 @@ extension Placemark {
         }
     }
 
-    var coordinate: Coordinate? {
-        guard let coordinate = self.location?.coordinate else {
-            return nil
+    static func make(mapItem: MKMapItem?) -> Placemark? {
+        guard
+            let mapItem = mapItem,
+            let location = mapItem.placemark.location,
+            let name = mapItem.placemark.name,
+            let timeZone = mapItem.timeZone
+        else {
+                return nil
         }
 
-        return Coordinate(longitude: coordinate.longitude, latitude: coordinate.latitude)
+        let coordinate = Coordinate(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
+        return Placemark(coordinate: coordinate, name: name, timeZone: timeZone)
+    }
+
+    static func make(clPlacemark: CLPlacemark?) -> Placemark? {
+        guard
+            let clPlacemark = clPlacemark,
+            let location = clPlacemark.location,
+            let name = clPlacemark.name,
+            let timeZone = clPlacemark.timeZone
+        else {
+                return nil
+        }
+
+        let coordinate = Coordinate(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
+        return Placemark(coordinate: coordinate, name: name, timeZone: timeZone)
     }
 
 }

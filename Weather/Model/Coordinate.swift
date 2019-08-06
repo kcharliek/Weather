@@ -9,7 +9,7 @@
 import Foundation
 
 
-internal struct Coordinate: Decodable, Hashable {
+internal struct Coordinate: Codable, Hashable {
 
     let longitude: Double
     let latitude: Double

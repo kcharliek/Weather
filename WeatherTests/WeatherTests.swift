@@ -2,7 +2,7 @@
 //  WeatherTests.swift
 //  WeatherTests
 //
-//  Created by ChanHee's Macbook Pro on 31/07/2019.
+//  Created by ChanHee Kim on 31/07/2019.
 //  Copyright © 2019 ChanHee Kim. All rights reserved.
 //
 

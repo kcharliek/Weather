@@ -15,6 +15,11 @@ extension UITableView {
         self.register(cellClass, forCellReuseIdentifier: cellClass.typeName)
     }
 
+    func registerNib(_ cellClass: UITableViewCell.Type) {
+        let nib = UINib(nibName: cellClass.typeName, bundle: nil)
+        self.register(nib, forCellReuseIdentifier: cellClass.typeName)
+    }
+
     func dequeueReusableCell<TableViewCell: UITableViewCell>(_ cellClass: TableViewCell.Type, for indexPath: IndexPath) -> TableViewCell {
         return self.dequeueReusableCell(withIdentifier: cellClass.typeName, for: indexPath) as! TableViewCell
     }

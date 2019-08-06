@@ -17,6 +17,14 @@ extension Double {
 
 }
 
+extension Int {
+
+    var stringValue: String {
+        return "\(self)"
+    }
+
+}
+
 extension NSObject {
 
     var typeName: String {

@@ -18,7 +18,7 @@ internal struct DarkSkyFetchForecastRequest: APIRequest {
         return DarkSkyURL.foreCast(with: self.coordinate)
     }
     var parameters: [String : Any] {
-        return [:]
+        return ["units":"si"]
     }
     var headers: [String : String] {
         return ["Content-Type": "application/json",

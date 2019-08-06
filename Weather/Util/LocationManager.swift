@@ -35,6 +35,8 @@ class LocationManager: NSObject {
 
     // MARK: - internal
 
+    internal var latestPlacemark: Placemark?
+
     internal func requestCurrentPlacemark(completion: @escaping PlacemarkCompletion) {
         guard CLLocationManager.locationServicesEnabled() else {
             completion(.failure(LocationManagerError.unavailable))
@@ -47,13 +49,13 @@ class LocationManager: NSObject {
         guard CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways else {
             completion(.failure(LocationManagerError.authorizationFailed))
+            self.manager.delegate = self
             self.manager.requestWhenInUseAuthorization()
             return
         }
 
         if self.status == .ready {
-            self.manager.startUpdatingLocation()
-            self.status = .updating
+            self.startUpdatingLocation()
         }
     }
 
@@ -68,6 +70,17 @@ class LocationManager: NSObject {
         self.manager.delegate = self
     }
 
+    private func startUpdatingLocation() {
+        self.manager.delegate = self
+        self.manager.startUpdatingLocation()
+        self.status = .updating
+    }
+
+    private func stopUpdatingLocation() {
+        self.manager.stopUpdatingLocation()
+        self.manager.delegate = nil
+    }
+
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -77,10 +90,11 @@ extension LocationManager: CLLocationManagerDelegate {
             return
         }
 
-        self.manager.startUpdatingLocation()
+        self.startUpdatingLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.stopUpdatingLocation()
         guard let location: CLLocation = locations.last else {
             self.completions.forEach {
                 $0(.failure(LocationManagerError.didFailToUpdateLocation))
@@ -95,12 +109,15 @@ extension LocationManager: CLLocationManagerDelegate {
                                     latitude: location.coordinate.latitude)
         Placemark.make(with: coordinate) { [weak self] result in
             completions.forEach { $0(result) }
+            result.handleSuccess({ self?.latestPlacemark = $0 })
             self?.completions = []
             self?.status = .ready
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.stopUpdatingLocation()
+
         self.completions.forEach { $0(.failure(LocationManagerError.didFailToUpdateLocation))
         }
         self.completions = []
