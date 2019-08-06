@@ -29,22 +29,6 @@ internal class ForecastCenter {
 
     // MARK: - internal
 
-    internal func requestForecast(at coordinate: Coordinate, caching: Bool = true, completion: @escaping (Result<Forecast, Error>) -> Void) {
-        Placemark.make(with: coordinate) { [weak self] (result) in
-            guard let self = self else {
-                completion(.failure(ForecastCenterError.weakSelfViolation))
-                return
-            }
-            result
-                .handleSuccess({
-                    self.requestForecast(at: $0, caching: caching, completion: completion)
-                })
-                .handleFailure({
-                    completion(.failure($0))
-                })
-        }
-    }
-
     @discardableResult
     internal func requestForecast(at placemark: Placemark, caching: Bool = true, completion: @escaping (Result<Forecast, Error>) -> Void) -> Cancelable? {
         if caching, let cached = self.fetchCachedForecast(at: placemark) {

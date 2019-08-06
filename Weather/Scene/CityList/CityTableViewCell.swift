@@ -25,12 +25,12 @@ class CityTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
     }
 
     override func prepareForReuse() {
         self.request?.cancel()
         self.temperatureLabel.text = "--°"
-        self.backgroundImageView.image = nil
         self.nameLabel.text = "--"
         self.timeLabel.text = "-- --:--"
         self.navigationImageView.isHidden = true

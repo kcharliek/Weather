@@ -48,6 +48,8 @@ class MainPageViewController: UIPageViewController {
         }
 
         self.setViewControllers([target], direction: .forward, animated: false, completion: nil)
+        self.scrollToTopAllPage()
+
         self.mainDelegate?.mainPageViewController(self, didChangeIndex: _index)
     }
 
@@ -69,6 +71,12 @@ class MainPageViewController: UIPageViewController {
         if pages.count == 1 {
             self.setViewControllers([self.pages.first!], direction: .forward, animated: false, completion: nil)
         }
+    }
+
+    private func scrollToTopAllPage() {
+        self.pages
+            .compactMap { $0 as? WeatherViewController }
+            .forEach { $0.scrollToTop() }
     }
 
 }

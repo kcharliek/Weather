@@ -11,7 +11,7 @@ import UIKit
 private enum Constant {
 
     static let currentWeatherViewHeight: CGFloat = UIScreen.main.bounds.size.height * 0.4
-    static let hourlyWeatherViewHeight: CGFloat = 100
+    static let hourlyWeatherViewHeight: CGFloat = 110
     static let estimateWeeklyWeatherViewHeight: CGFloat = 100
     static let currentWeatherInfoViewHeight: CGFloat = 370
 
@@ -22,11 +22,16 @@ class WeatherViewController: UIViewController {
 
     // MARK: - IBOutlet
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
 
     // MARK: - internal
 
     internal var model: Placemark?
+
+    internal func scrollToTop() {
+        self.scrollView?.setContentOffset(.zero, animated: false)
+    }
 
     // MARK: - life cycle
 
@@ -47,10 +52,16 @@ class WeatherViewController: UIViewController {
     private var weeklyWeatherViewHeightConstraint: NSLayoutConstraint?
 
     private func setupController() {
-        self.setupCurrentWeatherView()
-        self.setupHourlyWeatherView()
-        self.setupWeeklyWeatherView()
-        self.setupCurrentWeatherInfoView()
+        self.scrollView.scrollsToTop = true
+
+        self.addCurrentWeatherView()
+        self.addLine()
+        self.addHourlyWeatherView()
+        self.addLine()
+        self.addWeeklyWeatherView()
+        self.addLine()
+        self.addCurrentWeatherInfoView()
+        self.addLine()
     }
 
     private func setupData() {
@@ -64,7 +75,7 @@ class WeatherViewController: UIViewController {
         }
     }
 
-    private func setupCurrentWeatherView() {
+    private func addCurrentWeatherView() {
         self.addChild(self.currentWeatherViewController)
         self.stackView.addArrangedSubview(self.currentWeatherViewController.view)
         NSLayoutConstraint.activate([
@@ -73,16 +84,17 @@ class WeatherViewController: UIViewController {
         self.currentWeatherViewController.didMove(toParent: self)
     }
 
-    private func setupHourlyWeatherView() {
+    private func addHourlyWeatherView() {
         self.addChild(self.hourlyWeatherCollectionViewController)
         self.stackView.addArrangedSubview(self.hourlyWeatherCollectionViewController.collectionView)
+
         NSLayoutConstraint.activate([
             self.hourlyWeatherCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant: Constant.hourlyWeatherViewHeight)
         ])
         self.hourlyWeatherCollectionViewController.didMove(toParent: self)
     }
 
-    private func setupWeeklyWeatherView() {
+    private func addWeeklyWeatherView() {
         self.addChild(self.weeklyWeatherTableViewController)
         self.stackView.addArrangedSubview(self.weeklyWeatherTableViewController.tableView)
         self.weeklyWeatherViewHeightConstraint = self.weeklyWeatherTableViewController.tableView.heightAnchor.constraint(equalToConstant: Constant.estimateWeeklyWeatherViewHeight)
@@ -91,13 +103,21 @@ class WeatherViewController: UIViewController {
         self.weeklyWeatherTableViewController.didMove(toParent: self)
     }
 
-    private func setupCurrentWeatherInfoView() {
+    private func addCurrentWeatherInfoView() {
         self.addChild(self.currentWeatherInfoViewController)
         self.stackView.addArrangedSubview(self.currentWeatherInfoViewController.view)
         NSLayoutConstraint.activate([
             self.currentWeatherInfoViewController.view.heightAnchor.constraint(equalToConstant: Constant.currentWeatherInfoViewHeight)
         ])
         self.currentWeatherInfoViewController.didMove(toParent: self)
+    }
+
+    private func addLine() {
+        let line = UIView(frame: .zero)
+        line.backgroundColor = .white
+        line.alpha = 0.5
+        self.stackView.addArrangedSubview(line)
+        NSLayoutConstraint.activate([line.heightAnchor.constraint(equalToConstant: 1)])
     }
 
     private func updateForecast(_ forecast: Forecast) {

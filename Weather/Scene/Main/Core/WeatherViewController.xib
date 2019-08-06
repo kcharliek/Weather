@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController" customModule="Weather" customModuleProvider="target">
             <connections>
+                <outlet property="scrollView" destination="Vck-Ng-D02" id="Iov-Tf-uSn"/>
                 <outlet property="stackView" destination="rrN-OC-2i0" id="Pgy-YA-TqU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

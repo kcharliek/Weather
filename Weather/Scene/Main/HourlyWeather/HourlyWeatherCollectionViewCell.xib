@@ -20,23 +20,23 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwc-Tr-jIF" customClass="DateLabel" customModule="Weather" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="129" height="25"/>
+                        <rect key="frame" x="0.0" y="0.0" width="129" height="33"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="Fv3-34-6pg"/>
+                            <constraint firstAttribute="height" constant="33" id="Fv3-34-6pg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8cz-K0-4VH">
-                        <rect key="frame" x="0.0" y="35" width="129" height="20"/>
+                        <rect key="frame" x="0.0" y="40" width="129" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="8bI-OJ-M23"/>
+                            <constraint firstAttribute="height" constant="30" id="8bI-OJ-M23"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sX3-zy-AfZ" customClass="TemperatureLabel" customModule="Weather" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="65" width="129" height="25"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                        <rect key="frame" x="0.0" y="77" width="129" height="33"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -44,11 +44,11 @@
             </view>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="cwc-Tr-jIF" secondAttribute="trailing" id="0QH-WD-NoF"/>
-                <constraint firstItem="sX3-zy-AfZ" firstAttribute="top" secondItem="8cz-K0-4VH" secondAttribute="bottom" constant="10" id="BaD-ik-mSu"/>
+                <constraint firstItem="sX3-zy-AfZ" firstAttribute="top" secondItem="8cz-K0-4VH" secondAttribute="bottom" constant="7" id="BaD-ik-mSu"/>
                 <constraint firstItem="sX3-zy-AfZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DWl-BJ-Fqb"/>
                 <constraint firstItem="8cz-K0-4VH" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="IcP-iE-dzK"/>
                 <constraint firstAttribute="bottom" secondItem="sX3-zy-AfZ" secondAttribute="bottom" priority="250" id="R32-4f-Zjt"/>
-                <constraint firstItem="8cz-K0-4VH" firstAttribute="top" secondItem="cwc-Tr-jIF" secondAttribute="bottom" constant="10" id="RyY-yb-g36"/>
+                <constraint firstItem="8cz-K0-4VH" firstAttribute="top" secondItem="cwc-Tr-jIF" secondAttribute="bottom" constant="7" id="RyY-yb-g36"/>
                 <constraint firstAttribute="trailing" secondItem="sX3-zy-AfZ" secondAttribute="trailing" id="VSN-P4-Zoe"/>
                 <constraint firstItem="cwc-Tr-jIF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Y0s-mx-imc"/>
                 <constraint firstAttribute="trailing" secondItem="8cz-K0-4VH" secondAttribute="trailing" id="fD5-J0-cx1"/>

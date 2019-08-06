@@ -20,22 +20,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19Y-na-bBV" customClass="DateLabel" customModule="Weather" customModuleProvider="target">
-                        <rect key="frame" x="10" y="12" width="15" height="19.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="19.5" id="kCf-p1-4s2"/>
-                        </constraints>
+                        <rect key="frame" x="15" y="12" width="15" height="19.5"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T2L-Jw-IFj">
-                        <rect key="frame" x="119.5" y="12" width="19.5" height="19.5"/>
+                        <rect key="frame" x="116.5" y="9.5" width="25" height="25"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="T2L-Jw-IFj" secondAttribute="height" multiplier="1:1" id="Cvt-q8-iDg"/>
+                            <constraint firstAttribute="height" constant="25" id="ShH-fK-LPT"/>
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Nze-3S-ebW">
-                        <rect key="frame" x="192" y="12" width="56" height="20.5"/>
+                        <rect key="frame" x="187" y="12" width="56" height="20.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi8-Nf-zb8" customClass="TemperatureLabel" customModule="Weather" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="23" height="20.5"/>
@@ -56,9 +54,8 @@
                 <constraints>
                     <constraint firstItem="T2L-Jw-IFj" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xeh-GC-hSq"/>
                     <constraint firstItem="19Y-na-bBV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aqN-cq-J84"/>
-                    <constraint firstItem="19Y-na-bBV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cvv-dl-km8"/>
-                    <constraint firstItem="T2L-Jw-IFj" firstAttribute="height" secondItem="19Y-na-bBV" secondAttribute="height" id="odo-rR-9yM"/>
-                    <constraint firstAttribute="trailing" secondItem="Nze-3S-ebW" secondAttribute="trailing" constant="10" id="vDH-yh-DrJ"/>
+                    <constraint firstItem="19Y-na-bBV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="cvv-dl-km8"/>
+                    <constraint firstAttribute="trailing" secondItem="Nze-3S-ebW" secondAttribute="trailing" constant="15" id="vDH-yh-DrJ"/>
                     <constraint firstItem="T2L-Jw-IFj" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xKN-Br-qxc"/>
                 </constraints>
             </tableViewCellContentView>

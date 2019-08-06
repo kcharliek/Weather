@@ -11,7 +11,7 @@ import UIKit
 
 private enum Constant {
 
-    static let cellHeigth: CGFloat = 80
+    static let cellHeigth: CGFloat = 75
 
 }
 
@@ -47,6 +47,14 @@ internal class CityTableViewController: UITableViewController {
         return .lightContent
     }
 
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { (_) in
+            self.setupFooterView()
+        }, completion: nil)
+
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+
     // MARK: - private
 
     private var models: [Placemark] = []
@@ -63,7 +71,7 @@ internal class CityTableViewController: UITableViewController {
     }
 
     private func setupTableView() {
-        self.tableView.backgroundColor = .clear
+        self.tableView.backgroundColor = .black
 
         if #available(iOS 11.0, *) {
             self.tableView.contentInsetAdjustmentBehavior = .never
@@ -76,7 +84,7 @@ internal class CityTableViewController: UITableViewController {
 
     private func setupFooterView() {
         self.footerView.delegate = self
-        let size = CGSize(width: UIScreen.main.bounds.width, height: 90)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: 50)
         self.footerView.frame = CGRect(origin: .zero, size: size)
         self.tableView.tableFooterView = self.footerView
     }
@@ -155,7 +163,6 @@ extension CityTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         guard let model = self.models[safe: indexPath.row] else {
             return
         }

@@ -35,6 +35,7 @@ class WeeklyWeatherTableViewController: UITableViewController {
         self.tableView.backgroundColor = .clear
         self.registerTableViewCell()
         self.tableView.allowsSelection = false
+        self.tableView.separatorStyle = .none
     }
 
     private func registerTableViewCell() {

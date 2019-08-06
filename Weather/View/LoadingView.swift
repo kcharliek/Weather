@@ -14,6 +14,10 @@ class LoadingView: UIView {
     // MARK: - internal
 
     internal static func show() {
+        guard self.shared.isVisible == false else {
+            return
+        }
+
         self.shared.indicator.startAnimating()
 
         self.shared.alpha = 0.0
@@ -27,6 +31,10 @@ class LoadingView: UIView {
     }
 
     internal static func hide() {
+        guard self.shared.isVisible else {
+            return
+        }
+
         UIView.animate(withDuration: 0.3, animations: {
             self.shared.alpha = 0
         }, completion: { _ in
@@ -40,6 +48,9 @@ class LoadingView: UIView {
     private static let shared: LoadingView = LoadingView()
     private let indicator = UIActivityIndicatorView(style: .whiteLarge)
     private let backgroundView: UIView
+    private var isVisible: Bool {
+        return self.superview != nil
+    }
 
     private init() {
         let frame = UIScreen.main.bounds
