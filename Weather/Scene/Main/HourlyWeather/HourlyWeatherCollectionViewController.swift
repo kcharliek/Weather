@@ -9,11 +9,18 @@
 import UIKit
 
 
+private enum Constant {
+
+    static let maximumCellCount: Int = 12
+    static let cellWidth: CGFloat = 65
+
+}
+
 class HourlyWeatherCollectionViewController: UICollectionViewController {
 
     // MARK: - internal
 
-    internal func setModels(_ models: [Weather], placemark: Placemark?) {
+    internal func set(models: [Weather], placemark: Placemark?) {
         self.models = models
         self.placemark = placemark
         self.collectionView.reloadData()
@@ -52,17 +59,17 @@ extension HourlyWeatherCollectionViewController: UICollectionViewDelegateFlowLay
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(self.models.count, 12)
+        return min(self.models.count, Constant.maximumCellCount)
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(HourlyWeatherCollectionViewCell.self, for: indexPath)
-        cell.setModel(self.models[safe: indexPath.row], placemark: self.placemark)
+        cell.set(model: self.models[safe: indexPath.row], placemark: self.placemark)
         return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 65, height: collectionView.frame.height)
+        return CGSize(width: Constant.cellWidth, height: collectionView.frame.height)
     }
 
 }

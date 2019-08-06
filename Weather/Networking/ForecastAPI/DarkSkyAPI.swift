@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct DarkSkyAPI: ForecastAPI {
+
+internal struct DarkSkyAPI: ForecastAPI {
 
     static let manager: APIManager = DarkSkyAPIManager()
 
@@ -22,7 +23,5 @@ struct DarkSkyAPI: ForecastAPI {
         task.execute()
         return task
     }
-
-
 
 }

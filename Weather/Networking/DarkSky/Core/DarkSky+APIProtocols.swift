@@ -64,7 +64,7 @@ struct DarkSkyResponseValidator: APIResponseValidator {
 
 struct DarkSkyErrorChecker: APIErrorChecker {
 
-    func checkError(from data: Data?) throws {
+    func checkError(on data: Data?) throws {
         guard let data = data else {
             throw DarkSkyError.noData
         }

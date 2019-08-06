@@ -9,16 +9,20 @@
 import Foundation
 
 
-internal enum Defaults {
+internal struct Defaults {
+
+    static let shared = Defaults()
 
     internal enum Key: String {
         case cities
         case temperaturePrintType
     }
 
-    internal static func set<T: Codable>(object: T, forKey key: Defaults.Key) {
+    internal var userDefaults: UserDefaults = .standard
+
+    internal func set<T: Codable>(object: T, forKey key: Defaults.Key) {
         if self.isPrimitive(T.self) {
-            UserDefaults.standard.setValue(object, forKey: key.rawValue)
+            self.userDefaults.setValue(object, forKey: key.rawValue)
             return
         }
 
@@ -27,15 +31,15 @@ internal enum Defaults {
             return
         }
 
-        UserDefaults.standard.set(encoded, forKey: key.rawValue)
+        self.userDefaults.set(encoded, forKey: key.rawValue)
     }
 
-    internal static func value<T: Codable>(forKey key: Defaults.Key) -> T? {
+    internal func value<T: Codable>(forKey key: Defaults.Key) -> T? {
         if self.isPrimitive(T.self) {
-            return UserDefaults.standard.value(forKey: key.rawValue) as? T
+            return self.userDefaults.value(forKey: key.rawValue) as? T
         }
 
-        guard let data = UserDefaults.standard.data(forKey: key.rawValue) else {
+        guard let data = self.userDefaults.data(forKey: key.rawValue) else {
             return nil
         }
 
@@ -43,8 +47,12 @@ internal enum Defaults {
         return try? decoder.decode(T.self, from: data)
     }
 
-    static func isPrimitive<T>(_ value: T.Type) -> Bool {
+    private func isPrimitive<T>(_ value: T.Type) -> Bool {
         return value is Int.Type || value is Double.Type || value is String.Type || value is Float.Type || value is Bool.Type
+    }
+
+    private init() {
+        
     }
 
 }

@@ -15,7 +15,7 @@ class WeeklyWeatherTableViewController: UITableViewController {
 
     // MARK: - internal
 
-    func setModels(_ models: [Weather]) {
+    func set(models: [Weather]) {
         self.models = models
         self.tableView.reloadData()
     }
@@ -52,7 +52,7 @@ extension WeeklyWeatherTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(WeeklyWeatherTableViewCell.self, for: indexPath)
-        cell.setModel(self.models[safe: indexPath.row])
+        cell.set(model: self.models[safe: indexPath.row])
         return cell
     }
 

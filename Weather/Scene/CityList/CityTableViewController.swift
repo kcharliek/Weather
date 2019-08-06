@@ -12,6 +12,7 @@ import UIKit
 private enum Constant {
 
     static let cellHeigth: CGFloat = 75
+    static let footerViewHeight: CGFloat = 50
 
 }
 
@@ -84,31 +85,26 @@ internal class CityTableViewController: UITableViewController {
 
     private func setupFooterView() {
         self.footerView.delegate = self
-        let size = CGSize(width: UIScreen.main.bounds.width, height: 50)
+        let size = CGSize(width: UIScreen.main.bounds.width, height: Constant.footerViewHeight)
         self.footerView.frame = CGRect(origin: .zero, size: size)
         self.tableView.tableFooterView = self.footerView
     }
 
     private func setupData() {
-        let cities: [Placemark] = Defaults.value(forKey: .cities) ?? []
+        let cities: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
 
-        if let latestPlacemark = LocationManager.shared.latestPlacemark {
-            self.currentPlacemark = latestPlacemark
-            self.models = [latestPlacemark] + cities
-        } else {
-            LocationManager.shared.requestCurrentPlacemark { (result) in
-                result
-                    .handleSuccess({
-                        self.currentPlacemark = $0
-                        self.models = [$0] + cities
-                    })
-                    .handleFailure({ _ in
-                        self.currentPlacemark = nil
-                        self.models = cities
-                    })
+        LocationManager.shared.requestCurrentPlacemark { (result) in
+            result
+                .handleSuccess({
+                    self.currentPlacemark = $0
+                    self.models = [$0] + cities
+                })
+                .handleFailure({ _ in
+                    self.currentPlacemark = nil
+                    self.models = cities
+                })
 
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
     }
 
@@ -149,7 +145,7 @@ extension CityTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(CityTableViewCell.self, for: indexPath)
-        cell.setModel(self.models[safe: indexPath.row], isFirst: indexPath.row == 0)
+        cell.set(model: self.models[safe: indexPath.row], isFirst: indexPath.row == 0)
         return cell
     }
 
@@ -186,13 +182,12 @@ extension CityTableViewController {
             self.delegate?.cityTableViewController(self, didRemoveCity: target)
             self.tableView.reloadData()
 
-            let value: [Placemark] = Defaults.value(forKey: .cities) ?? []
-            Defaults.set(object: value.filter { $0 != target }, forKey: .cities)
+            let value: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
+            Defaults.shared.set(object: value.filter { $0 != target }, forKey: .cities)
         }
     }
 
 }
-
 
 extension CityTableViewController: CityTableFooterViewDelegate {
 
@@ -204,7 +199,6 @@ extension CityTableViewController: CityTableFooterViewDelegate {
 
 }
 
-
 extension CityTableViewController: CitySearchViewControllerDelegate {
 
     func citySearchViewController(_ citySearchViewController: CitySearchViewController, didSelectPlacemark placemark: Placemark) {
@@ -215,13 +209,15 @@ extension CityTableViewController: CitySearchViewControllerDelegate {
         }
         self.models.append(placemark)
 
-        let value: [Placemark] = Defaults.value(forKey: .cities) ?? []
-        Defaults.set(object: value + [placemark], forKey: .cities)
+        let value: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
+        Defaults.shared.set(object: value + [placemark], forKey: .cities)
 
         let indexPath = IndexPath(row: self.models.count - 1, section: 0)
+        self.tableView.beginUpdates()
         self.tableView.insertRows(at: [indexPath], with: .automatic)
+        self.tableView.endUpdates()
 
         self.delegate?.cityTableViewController(self, didAddCity: placemark)
     }
-
+    
 }

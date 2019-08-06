@@ -14,7 +14,7 @@ class CitySearchTableViewCell: UITableViewCell {
 
     // MARK: - internal
 
-    internal func setModel(_ model: MKMapItem?) {
+    internal func set(model: MKMapItem?) {
         self.textLabel?.text = model?.placemark.name
     }
 

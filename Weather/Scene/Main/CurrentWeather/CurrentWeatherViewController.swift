@@ -12,22 +12,16 @@ class CurrentWeatherViewController: UIViewController {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: TemperatureLabel!
+    @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var weatherDescriptionLabel: UILabel!
+    @IBOutlet private weak var temperatureLabel: TemperatureLabel!
 
     // MARK: - internal
 
-    internal func setModel(_ model: Weather, placemark: Placemark?) {
+    internal func set(model: Weather, placemark: Placemark?) {
         self.weatherDescriptionLabel.text = model.summary
-        self.temperatureLabel.setTemperature(model.temperature)
+        self.temperatureLabel.set(temperature: model.temperature)
         self.locationLabel.text = placemark?.name
-    }
-
-    // MARK: - life cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
 
 }

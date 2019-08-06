@@ -19,8 +19,8 @@ internal class CityTableFooterView: UIView {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var celsiusButton: UIButton!
-    @IBOutlet weak var fahrenheitButton: UIButton!
+    @IBOutlet private weak var celsiusButton: UIButton!
+    @IBOutlet private weak var fahrenheitButton: UIButton!
 
     // MARK: - internal
 
@@ -35,23 +35,24 @@ internal class CityTableFooterView: UIView {
 
     // MARK: - actions
 
-    @IBAction func onClickCelsiusButton(_ sender: UIButton) {
-        self.temperatureButtons.forEach { $0.isSelected = false }
-        sender.isSelected = true
+    @IBAction
+    private func onClickCelsiusButton(_ sender: UIButton) {
+        self.temperatureButtons.forEach { $0.isSelected = ($0 == sender) }
 
         NotificationCenter.default.post(name: .didChangeTemperaturePrintType, object: TemperaturePrintType.celsius)
-        Defaults.set(object: TemperaturePrintType.celsius.rawValue, forKey: .temperaturePrintType)
+        Defaults.shared.set(object: TemperaturePrintType.celsius.rawValue, forKey: .temperaturePrintType)
     }
 
-    @IBAction func onClickFahrenheitButton(_ sender: UIButton) {
-        self.temperatureButtons.forEach { $0.isSelected = false }
-        sender.isSelected = true
+    @IBAction
+    private func onClickFahrenheitButton(_ sender: UIButton) {
+        self.temperatureButtons.forEach { $0.isSelected = ($0 == sender) }
 
         NotificationCenter.default.post(name: .didChangeTemperaturePrintType, object: TemperaturePrintType.fahrenheit)
-        Defaults.set(object: TemperaturePrintType.fahrenheit.rawValue, forKey: .temperaturePrintType)
+        Defaults.shared.set(object: TemperaturePrintType.fahrenheit.rawValue, forKey: .temperaturePrintType)
     }
 
-    @IBAction func onClickAddButton(_ sender: Any) {
+    @IBAction
+    private func onClickAddButton(_ sender: Any) {
         self.delegate?.cityTableFooterViewDidClickAddButton(self)
     }
 
@@ -64,7 +65,7 @@ internal class CityTableFooterView: UIView {
     private func setupTemperaturePrintTypeButtonSelection() {
         self.temperatureButtons.forEach({ $0.isSelected = false })
 
-        let rawValue: Int = Defaults.value(forKey: .temperaturePrintType) ?? 0
+        let rawValue: Int = Defaults.shared.value(forKey: .temperaturePrintType) ?? 0
         let printType = TemperaturePrintType(rawValue: rawValue) ?? .celsius
 
         switch printType {

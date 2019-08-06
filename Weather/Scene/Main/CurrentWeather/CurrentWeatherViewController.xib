@@ -24,13 +24,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="d4o-0q-J56">
-                    <rect key="frame" x="0.0" y="94" width="426" height="172.5"/>
+                    <rect key="frame" x="15" y="94" width="396" height="172.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="N4U-fI-5d8">
-                            <rect key="frame" x="0.0" y="0.0" width="426" height="70"/>
+                            <rect key="frame" x="0.0" y="0.0" width="396" height="70"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="H7v-9S-qMO">
-                                    <rect key="frame" x="0.0" y="0.0" width="426" height="42"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="396" height="42"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="35"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="q78-7B-F7a">
-                                    <rect key="frame" x="0.0" y="47" width="426" height="23"/>
+                                    <rect key="frame" x="0.0" y="47" width="396" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="EYu-IS-cYH"/>
                                     </constraints>
@@ -65,7 +65,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9NX-rW-NRa" customClass="TemperatureLabel" customModule="Weather" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="77" width="426" height="95.5"/>
+                            <rect key="frame" x="0.0" y="77" width="396" height="95.5"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="80"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -86,8 +86,7 @@
             <constraints>
                 <constraint firstItem="d4o-0q-J56" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="FnG-aG-aC8"/>
                 <constraint firstItem="d4o-0q-J56" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="LZx-PO-6F6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="d4o-0q-J56" secondAttribute="trailing" id="Rvy-ky-iu1"/>
-                <constraint firstItem="d4o-0q-J56" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="X8Z-RV-z7U"/>
+                <constraint firstItem="d4o-0q-J56" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="X8Z-RV-z7U"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

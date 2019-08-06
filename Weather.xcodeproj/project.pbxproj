@@ -40,7 +40,6 @@
 		C477333A22F1D70100EC1D2A /* DarkSkyURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477333922F1D70100EC1D2A /* DarkSkyURL.swift */; };
 		C477333C22F1DB0700EC1D2A /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477333B22F1DB0700EC1D2A /* Coordinate.swift */; };
 		C477333F22F1DCB600EC1D2A /* EtcExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477333E22F1DCB600EC1D2A /* EtcExtensions.swift */; };
-		C477334122F1DD7100EC1D2A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477334022F1DD7100EC1D2A /* StringExtensions.swift */; };
 		C477334322F1DF9D00EC1D2A /* DarkSkyForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477334222F1DF9D00EC1D2A /* DarkSkyForecast.swift */; };
 		C477334722F1E18700EC1D2A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C477334622F1E18600EC1D2A /* Result.swift */; };
 		C47864BA22F6F40C0083C915 /* WeeklyWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47864B822F6F40C0083C915 /* WeeklyWeatherTableViewCell.swift */; };
@@ -65,6 +64,9 @@
 		C4D7BAE822F2FD7A00D6C3BF /* DarkSky+APIProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D7BAE722F2FD7A00D6C3BF /* DarkSky+APIProtocols.swift */; };
 		C4D7BAEA22F2FE1C00D6C3BF /* APIRequestConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D7BAE922F2FE1C00D6C3BF /* APIRequestConverter.swift */; };
 		C4D7BAEF22F33ED200D6C3BF /* DarkSkyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D7BAEE22F33ED200D6C3BF /* DarkSkyWeather.swift */; };
+		C4E4CCD722F9939700BFB679 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E4CCD622F9939700BFB679 /* URLExtensions.swift */; };
+		C4E4CCD922F998A000BFB679 /* TemperatureHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E4CCD822F998A000BFB679 /* TemperatureHelper.swift */; };
+		C4E4CCDB22F9B86300BFB679 /* UIAlertControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E4CCDA22F9B86300BFB679 /* UIAlertControllerExtensions.swift */; };
 		C4F745B922F3E6E8000E6A2A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F745B822F3E6E8000E6A2A /* LocationManager.swift */; };
 		C4F745BC22F3E966000E6A2A /* CitySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F745BB22F3E966000E6A2A /* CitySearchViewController.swift */; };
 		C4F745BF22F3EA0B000E6A2A /* CitySearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F745BD22F3EA0B000E6A2A /* CitySearchTableViewController.swift */; };
@@ -121,7 +123,6 @@
 		C477333922F1D70100EC1D2A /* DarkSkyURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyURL.swift; sourceTree = "<group>"; };
 		C477333B22F1DB0700EC1D2A /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		C477333E22F1DCB600EC1D2A /* EtcExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtcExtensions.swift; sourceTree = "<group>"; };
-		C477334022F1DD7100EC1D2A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C477334222F1DF9D00EC1D2A /* DarkSkyForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyForecast.swift; sourceTree = "<group>"; };
 		C477334622F1E18600EC1D2A /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C47864B822F6F40C0083C915 /* WeeklyWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWeatherTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +147,9 @@
 		C4D7BAE722F2FD7A00D6C3BF /* DarkSky+APIProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DarkSky+APIProtocols.swift"; sourceTree = "<group>"; };
 		C4D7BAE922F2FE1C00D6C3BF /* APIRequestConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestConverter.swift; sourceTree = "<group>"; };
 		C4D7BAEE22F33ED200D6C3BF /* DarkSkyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyWeather.swift; sourceTree = "<group>"; };
+		C4E4CCD622F9939700BFB679 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		C4E4CCD822F998A000BFB679 /* TemperatureHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureHelper.swift; sourceTree = "<group>"; };
+		C4E4CCDA22F9B86300BFB679 /* UIAlertControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtensions.swift; sourceTree = "<group>"; };
 		C4F745B822F3E6E8000E6A2A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C4F745BB22F3E966000E6A2A /* CitySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewController.swift; sourceTree = "<group>"; };
 		C4F745BD22F3EA0B000E6A2A /* CitySearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchTableViewController.swift; sourceTree = "<group>"; };
@@ -334,7 +338,6 @@
 		C477333D22F1DCAA00EC1D2A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C477334022F1DD7100EC1D2A /* StringExtensions.swift */,
 				C4F745C522F3EB67000E6A2A /* UITableViewExtensions.swift */,
 				C477333E22F1DCB600EC1D2A /* EtcExtensions.swift */,
 				C410B75722F44C2E007C2822 /* UIViewControllerExtensions.swift */,
@@ -344,6 +347,8 @@
 				C410B78122F56570007C2822 /* DateExtensions.swift */,
 				C410B78822F5DBCA007C2822 /* UIViewExtensions.swift */,
 				C47864BC22F6F8410083C915 /* UIImageExtensions.swift */,
+				C4E4CCD622F9939700BFB679 /* URLExtensions.swift */,
+				C4E4CCDA22F9B86300BFB679 /* UIAlertControllerExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -362,6 +367,7 @@
 				C477334622F1E18600EC1D2A /* Result.swift */,
 				C4F745B822F3E6E8000E6A2A /* LocationManager.swift */,
 				C47864D022F71F700083C915 /* Defaults.swift */,
+				C4E4CCD822F998A000BFB679 /* TemperatureHelper.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -568,11 +574,14 @@
 				C410B75E22F45140007C2822 /* HourlyWeatherCollectionViewController.swift in Sources */,
 				C477332E22F1D14300EC1D2A /* Forecast.swift in Sources */,
 				C477333822F1D69F00EC1D2A /* DarkSkyFetchForecastRequest.swift in Sources */,
+				C4E4CCD922F998A000BFB679 /* TemperatureHelper.swift in Sources */,
 				C410B75622F44B79007C2822 /* LaunchScreenViewController.swift in Sources */,
+				C4E4CCDB22F9B86300BFB679 /* UIAlertControllerExtensions.swift in Sources */,
 				C410B78022F554C4007C2822 /* NoticiationName.swift in Sources */,
 				C410B76D22F51B5E007C2822 /* Image.swift in Sources */,
 				C4F745BF22F3EA0B000E6A2A /* CitySearchTableViewController.swift in Sources */,
 				C47864C022F6FFBE0083C915 /* WeeklyWeatherTableViewController.swift in Sources */,
+				C4E4CCD722F9939700BFB679 /* URLExtensions.swift in Sources */,
 				C4F745B922F3E6E8000E6A2A /* LocationManager.swift in Sources */,
 				C410B76122F45185007C2822 /* HourlyWeatherCollectionViewCell.swift in Sources */,
 				C477330822F1C2EB00EC1D2A /* MainViewController.swift in Sources */,
@@ -594,7 +603,6 @@
 				C47864D122F71F700083C915 /* Defaults.swift in Sources */,
 				C477333C22F1DB0700EC1D2A /* Coordinate.swift in Sources */,
 				C410B75822F44C2E007C2822 /* UIViewControllerExtensions.swift in Sources */,
-				C477334122F1DD7100EC1D2A /* StringExtensions.swift in Sources */,
 				C477333A22F1D70100EC1D2A /* DarkSkyURL.swift in Sources */,
 				C477332522F1C7CA00EC1D2A /* ForecastCenter.swift in Sources */,
 				C410B76F22F52A4B007C2822 /* UIColorExtensions.swift in Sources */,
@@ -769,6 +777,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4HQ6PG585Q;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -786,6 +795,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4HQ6PG585Q;
 				INFOPLIST_FILE = Weather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -22,8 +22,8 @@ class WeatherViewController: UIViewController {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var stackView: UIStackView!
 
     // MARK: - internal
 
@@ -43,10 +43,10 @@ class WeatherViewController: UIViewController {
 
     // MARK: - private
 
-    private var currentWeatherViewController = CurrentWeatherViewController.loadFromNib()
-    private var weeklyWeatherTableViewController = WeeklyWeatherTableViewController()
-    private var hourlyWeatherCollectionViewController = HourlyWeatherCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
-    private var currentWeatherInfoViewController = CurrentWeatherInfoViewController.loadFromNib()
+    private let currentWeatherViewController = CurrentWeatherViewController.loadFromNib()
+    private let weeklyWeatherTableViewController = WeeklyWeatherTableViewController()
+    private let hourlyWeatherCollectionViewController = HourlyWeatherCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
+    private let currentWeatherInfoViewController = CurrentWeatherInfoViewController.loadFromNib()
 
     private var forecast: Forecast?
     private var weeklyWeatherViewHeightConstraint: NSLayoutConstraint?
@@ -72,6 +72,7 @@ class WeatherViewController: UIViewController {
         ForecastCenter.shared.requestForecast(at: placemark) { [weak self] (result) in
             guard let self = self else { return }
             result.handleSuccess(self.updateForecast)
+                  .handleFailure { UIAlertController.toast("\($0)") }
         }
     }
 
@@ -122,13 +123,13 @@ class WeatherViewController: UIViewController {
 
     private func updateForecast(_ forecast: Forecast) {
         DispatchQueue.main.async {
-            self.currentWeatherViewController.setModel(forecast.current, placemark: self.model)
-            self.hourlyWeatherCollectionViewController.setModels(forecast.hourly, placemark: self.model)
+            self.currentWeatherViewController.set(model: forecast.current, placemark: self.model)
+            self.hourlyWeatherCollectionViewController.set(models: forecast.hourly, placemark: self.model)
 
             self.weeklyWeatherViewHeightConstraint?.constant = CGFloat( forecast.weekly.count * 44)
-            self.weeklyWeatherTableViewController.setModels(forecast.weekly)
+            self.weeklyWeatherTableViewController.set(models: forecast.weekly)
 
-            self.currentWeatherInfoViewController.setModel(forecast.current, placemark: self.model)
+            self.currentWeatherInfoViewController.set(model: forecast.current, placemark: self.model)
         }
     }
 

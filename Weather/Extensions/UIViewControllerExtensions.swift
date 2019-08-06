@@ -18,4 +18,8 @@ extension UIViewController {
         return instantiateFromNib()
     }
 
+    var isVisible: Bool {
+        return self.viewIfLoaded?.window != nil
+    }
+
 }

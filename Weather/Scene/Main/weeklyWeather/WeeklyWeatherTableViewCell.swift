@@ -13,34 +13,34 @@ class WeeklyWeatherTableViewCell: UITableViewCell {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var dateLabel: DateLabel!
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var maximumTemperatureLabel: TemperatureLabel!
-    @IBOutlet weak var minimumTemperatureLabel: TemperatureLabel!
+    @IBOutlet private weak var dateLabel: DateLabel!
+    @IBOutlet private weak var iconImageView: UIImageView!
+    @IBOutlet private weak var maximumTemperatureLabel: TemperatureLabel!
+    @IBOutlet private weak var minimumTemperatureLabel: TemperatureLabel!
 
-    internal func setModel(_ model: Weather?) {
+    internal func set(model: Weather?) {
         guard let model = model else {
             return
         }
 
-        self.setIcon(with: model)
-        self.setTemperatureLabel(with: model)
-        self.setDateLabel(with: model)
+        self.setupIconImageView(with: model)
+        self.setupTemperatureLabel(with: model)
+        self.setupDateLabel(with: model)
     }
 
     // MARK: - private
 
-    private func setIcon(with model: Weather) {
+    private func setupIconImageView(with model: Weather) {
         let urlString = model.fetchIconURLString()
         self.iconImageView.setImage(withUrlString: urlString, placeholder: nil)
     }
 
-    private func setTemperatureLabel(with model: Weather) {
-        self.minimumTemperatureLabel.setTemperature(model.temperatureLow)
-        self.maximumTemperatureLabel.setTemperature(model.temperatureHigh)
+    private func setupTemperatureLabel(with model: Weather) {
+        self.minimumTemperatureLabel.set(temperature: model.temperatureLow)
+        self.maximumTemperatureLabel.set(temperature: model.temperatureHigh)
     }
 
-    private func setDateLabel(with model: Weather) {
+    private func setupDateLabel(with model: Weather) {
         self.dateLabel.setTimeInterval(model.time, format: .dayOfTheWeek)
     }
 

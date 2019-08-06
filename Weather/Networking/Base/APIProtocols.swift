@@ -76,7 +76,7 @@ internal protocol APIRequestExecuter {
 
 internal protocol APIErrorChecker {
 
-    func checkError(from data: Data?) throws
+    func checkError(on data: Data?) throws
 
 }
 
@@ -101,7 +101,7 @@ extension APIManager {
             }
 
             do {
-                try self.errorChecker.checkError(from: data)
+                try self.errorChecker.checkError(on: data)
             } catch(let error) {
                 completion?(.failure(error))
                 return

@@ -13,30 +13,26 @@ class MainViewController: UIViewController {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var pageControl: WeatherPageControl!
+    @IBOutlet private weak var containerView: UIView!
+    @IBOutlet private weak var backgroundImageView: UIImageView!
+    @IBOutlet private weak var pageControl: WeatherPageControl!
 
     // MARK: - life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.setupController()
     }
 
     // MARK: - action
 
-    @IBAction func onClickGithubButton(_ sender: Any) {
-        let urlString = "https://github.com/ChanHeeKim1/Weather"
-        guard let url = URL(string: urlString) else {
-            return
-        }
-
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    @IBAction
+    private func onClickGithubButton(_ sender: Any) {
+        UIApplication.shared.open(URL.gitHubRepo, options: [:], completionHandler: nil)
     }
  
-    @IBAction func onClickCityListButton(_ sender: Any) {
+    @IBAction
+    private func onClickCityListButton(_ sender: Any) {
         let vc = CityTableViewController()
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
@@ -54,7 +50,7 @@ class MainViewController: UIViewController {
     }
 
     func setupFollowingPlacemarkPage() {
-        let cities: [Placemark] = Defaults.value(forKey: .cities) ?? []
+        let cities: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
         cities.forEach(self.addPage)
     }
 
@@ -70,9 +66,21 @@ class MainViewController: UIViewController {
     private func setupWeatherPages() {
         LocationManager.shared.requestCurrentPlacemark { [weak self] (result) in
             guard let self = self else { return }
-            result.handleSuccess(self.addPage)
+            result
+                .handleSuccess {
+                    self.view.isUserInteractionEnabled = true
+                    self.addPage(with: $0)
+                    self.setupFollowingPlacemarkPage()
+                }
+                .handleFailure {
+                    self.view.isUserInteractionEnabled = false
+                    self.showErrorToast(with: $0)
+                }
 
-            self.setupFollowingPlacemarkPage()
+
+            
+
+//            self.setupFollowingPlacemarkPage()
         }
     }
 
@@ -93,6 +101,28 @@ class MainViewController: UIViewController {
 
     private func selectPage(with placemark: Placemark) {
         self.pageViewController.selectPage(for: placemark)
+    }
+
+    private func showErrorToast(with error: Error) {
+        var iteration = 0
+        let maximumRecursion = 10
+
+        func _showErrorToast(with error: Error) {
+            guard iteration <= maximumRecursion else {
+                return
+            }
+
+            if self.isVisible {
+                UIAlertController.toast("\(error)")
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    iteration += 1
+                    _showErrorToast(with: error)
+                }
+            }
+        }
+
+        _showErrorToast(with: error)
     }
 
 }

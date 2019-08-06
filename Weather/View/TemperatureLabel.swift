@@ -11,8 +11,8 @@ import UIKit
 
 enum TemperaturePrintType: Int, Codable {
 
-    case fahrenheit = 0
-    case celsius
+    case celsius = 0
+    case fahrenheit
 
 }
 
@@ -20,8 +20,8 @@ internal class TemperatureLabel: UILabel {
 
     // MARK: - internal
 
-    internal func setTemperature(_ temperature: Double?) {
-        let rawValue: Int = Defaults.value(forKey: .temperaturePrintType) ?? 0
+    internal func set(temperature: Double?) {
+        let rawValue: Int = Defaults.shared.value(forKey: .temperaturePrintType) ?? 0
         let printType = TemperaturePrintType(rawValue: rawValue) ?? .celsius
         self.setTemperature(temperature, printType: printType)
     }
@@ -70,16 +70,8 @@ internal class TemperatureLabel: UILabel {
         case .celsius:
             self.text = Int(temperature).stringValue + "°"
         case .fahrenheit:
-            self.text = Int(self.celsiusToFahrenheit(temperature)).stringValue + "°"
+            self.text = Int(TemperatureHelper.fahrenheit(from: temperature)).stringValue + "°"
         }
-    }
-
-    private func celsiusToFahrenheit(_ celsius: Double) -> Double {
-        return (celsius * 1.8) + 32
-    }
-
-    private func fahrenheitToCelsius(_ fahrenheit: Double) -> Double {
-        return (fahrenheit - 32) / 1.8
     }
 
 }

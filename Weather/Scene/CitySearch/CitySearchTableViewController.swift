@@ -48,7 +48,7 @@ extension CitySearchTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(CitySearchTableViewCell.self, for: indexPath)
-        cell.setModel(self.matchingItems[safe: indexPath.row])
+        cell.set(model: self.matchingItems[safe: indexPath.row])
 
         return cell
     }
@@ -70,11 +70,12 @@ extension CitySearchTableViewController {
 extension CitySearchTableViewController: UISearchResultsUpdating {
 
     func updateSearchResults(for searchController: UISearchController) {
-        guard //let mapView = mapView,
-            let searchBarText = searchController.searchBar.text else { return }
+        guard let searchBarText = searchController.searchBar.text else {
+            return
+        }
+
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
-//        request.region = MKCoordinateRegion.init(center: <#T##CLLocationCoordinate2D#>, latitudinalMeters: <#T##CLLocationDistance#>, longitudinalMeters: <#T##CLLocationDistance#>)
         let search = MKLocalSearch(request: request)
         search.start(completionHandler: { response, _ in
             guard let response = response else {
@@ -83,7 +84,6 @@ extension CitySearchTableViewController: UISearchResultsUpdating {
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
         })
-
     }
 
 }

@@ -27,6 +27,12 @@ private enum LocationManagerStatus {
 
 }
 
+private enum Constant {
+
+    static let cacheExpirationTime: TimeInterval = 60
+
+}
+
 class LocationManager: NSObject {
 
     typealias PlacemarkCompletion = (Result<Placemark, Error>) -> Void
@@ -35,22 +41,28 @@ class LocationManager: NSObject {
 
     // MARK: - internal
 
-    internal var latestPlacemark: Placemark?
-
-    internal func requestCurrentPlacemark(completion: @escaping PlacemarkCompletion) {
+    internal func requestCurrentPlacemark(cashing: Bool = true, completion: @escaping PlacemarkCompletion) {
         guard CLLocationManager.locationServicesEnabled() else {
             completion(.failure(LocationManagerError.unavailable))
             self.status = .unavailable
             return
         }
 
+        if let cached = self.fetchCachedPlacemark() {
+            completion(.success(cached))
+            return
+        }
+
         self.completions.append(completion)
 
-        guard CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
-            CLLocationManager.authorizationStatus() == .authorizedAlways else {
-            completion(.failure(LocationManagerError.authorizationFailed))
+        if CLLocationManager.authorizationStatus() == .notDetermined {
             self.manager.delegate = self
             self.manager.requestWhenInUseAuthorization()
+            return
+        }
+
+        guard self.isAuthorized else {
+            completion(.failure(LocationManagerError.authorizationFailed))
             return
         }
 
@@ -64,6 +76,15 @@ class LocationManager: NSObject {
     private var manager = CLLocationManager()
     private var completions: [PlacemarkCompletion] = []
     private var status: LocationManagerStatus = .ready
+    private var cachedPlacemark: Placemark? {
+        didSet {
+            self.lastUpdateTime = .now
+        }
+    }
+    private var lastUpdateTime: Date = .now
+    private var isAuthorized: Bool {
+        return CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways
+    }
 
     private override init() {
         super.init()
@@ -79,6 +100,20 @@ class LocationManager: NSObject {
     private func stopUpdatingLocation() {
         self.manager.stopUpdatingLocation()
         self.manager.delegate = nil
+    }
+
+    private func fetchCachedPlacemark() -> Placemark? {
+        guard let placemark = self.cachedPlacemark,
+            self.lastUpdateTime > cacheExpirationDate
+        else {
+            return nil
+        }
+
+        return placemark
+    }
+
+    private var cacheExpirationDate: Date {
+        return Date.now.addingTimeInterval(-Constant.cacheExpirationTime)
     }
 
 }
@@ -109,7 +144,7 @@ extension LocationManager: CLLocationManagerDelegate {
                                     latitude: location.coordinate.latitude)
         Placemark.make(with: coordinate) { [weak self] result in
             completions.forEach { $0(result) }
-            result.handleSuccess({ self?.latestPlacemark = $0 })
+            result.handleSuccess({ self?.cachedPlacemark = $0 })
             self?.completions = []
             self?.status = .ready
         }

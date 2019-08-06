@@ -33,12 +33,6 @@ class CitySearchViewController: UISearchController {
 
     internal weak var citySearchDelegate: CitySearchViewControllerDelegate?
 
-    // MARK: - life cycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     // MARK: - private
 
     private var searchTableViewController: CitySearchTableViewController?
