@@ -12,5 +12,6 @@ import Foundation
 extension Notification.Name {
 
     static let didChangeTemperaturePrintType = Notification.Name("didChangeTemperaturePrintTypeNotification")
+    static let didChangeCurrentLocation = Notification.Name("didChangeCurrentLocationNotification")
 
 }

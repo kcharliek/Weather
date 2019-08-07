@@ -27,10 +27,18 @@ class WeatherViewController: UIViewController {
 
     // MARK: - internal
 
-    internal var model: Placemark?
+    internal private(set) var model: Placemark?
 
     internal func scrollToTop() {
         self.scrollView?.setContentOffset(.zero, animated: false)
+    }
+
+    internal func set(model: Placemark?) {
+        self.model = model
+
+        if self.isVisible {
+            self.setupData()
+        }
     }
 
     // MARK: - life cycle
@@ -38,6 +46,10 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupController()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setupData()
     }
 
@@ -126,7 +138,7 @@ class WeatherViewController: UIViewController {
             self.currentWeatherViewController.set(model: forecast.current, placemark: self.model)
             self.hourlyWeatherCollectionViewController.set(models: forecast.hourly, placemark: self.model)
 
-            self.weeklyWeatherViewHeightConstraint?.constant = CGFloat( forecast.weekly.count * 44)
+            self.weeklyWeatherViewHeightConstraint?.constant = CGFloat(forecast.weekly.count) * WeeklyWeatherTableViewController.cellHeight
             self.weeklyWeatherTableViewController.set(models: forecast.weekly)
 
             self.currentWeatherInfoViewController.set(model: forecast.current, placemark: self.model)

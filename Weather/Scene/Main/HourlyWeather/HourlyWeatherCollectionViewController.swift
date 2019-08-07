@@ -39,8 +39,12 @@ class HourlyWeatherCollectionViewController: UICollectionViewController {
     private var placemark: Placemark?
 
     private func setupController() {
-        self.collectionView.backgroundColor = .clear
         self.registerCollectionViewCell()
+        self.setupCollectionView()
+    }
+
+    private func setupCollectionView() {
+        self.collectionView.backgroundColor = .clear
         (self.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = .horizontal
         self.collectionView.showsHorizontalScrollIndicator = false
         self.collectionView.showsVerticalScrollIndicator = false

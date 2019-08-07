@@ -14,8 +14,11 @@ internal struct Defaults {
     static let shared = Defaults()
 
     internal enum Key: String {
+
         case cities
         case temperaturePrintType
+        case lastUpdatedPlacemark
+
     }
 
     internal var userDefaults: UserDefaults = .standard

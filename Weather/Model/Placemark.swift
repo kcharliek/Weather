@@ -51,7 +51,7 @@ extension Placemark {
             let name = mapItem.placemark.name,
             let timeZone = mapItem.timeZone
         else {
-                return nil
+            return nil
         }
 
         let coordinate = Coordinate(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)
@@ -65,7 +65,7 @@ extension Placemark {
             let name = clPlacemark.name,
             let timeZone = clPlacemark.timeZone
         else {
-                return nil
+            return nil
         }
 
         let coordinate = Coordinate(longitude: location.coordinate.longitude, latitude: location.coordinate.latitude)

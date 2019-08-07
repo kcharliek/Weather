@@ -78,17 +78,23 @@ class LocationManager: NSObject {
     private var status: LocationManagerStatus = .ready
     private var cachedPlacemark: Placemark? {
         didSet {
+            guard let _cachedPlacemark = self.cachedPlacemark else {
+                return
+            }
+
             self.lastUpdateTime = .now
+            Defaults.shared.set(object: _cachedPlacemark, forKey: .lastUpdatedPlacemark)
         }
     }
-    private var lastUpdateTime: Date = .now
+    private var lastUpdateTime: Date = .distantPast
     private var isAuthorized: Bool {
         return CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways
     }
 
     private override init() {
         super.init()
-        self.manager.delegate = self
+
+        self.cachedPlacemark = Defaults.shared.value(forKey: .lastUpdatedPlacemark)
     }
 
     private func startUpdatingLocation() {
@@ -121,11 +127,20 @@ class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse || status == .authorizedAlways else {
+        if status == .notDetermined {
             return
         }
 
-        self.startUpdatingLocation()
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
+            self.startUpdatingLocation()
+        } else {
+            self.completions.forEach {
+                $0(.failure(LocationManagerError.authorizationFailed))
+            }
+            self.completions = []
+            self.status = .ready
+        }
+
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -144,7 +159,10 @@ extension LocationManager: CLLocationManagerDelegate {
                                     latitude: location.coordinate.latitude)
         Placemark.make(with: coordinate) { [weak self] result in
             completions.forEach { $0(result) }
-            result.handleSuccess({ self?.cachedPlacemark = $0 })
+            result.handleSuccess({
+                NotificationCenter.default.post(name: .didChangeCurrentLocation, object: $0)
+                self?.cachedPlacemark = $0
+            })
             self?.completions = []
             self?.status = .ready
         }

@@ -15,16 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        self.setupStartRootViewController()
+        self.setupStartViewController()
         return true
     }
 
     // MARK: - private
 
-    private func setupStartRootViewController() {
+    private func setupStartViewController() {
         self.window?.makeKeyAndVisible()
-        let mainVC = MainViewController.loadFromNib()
-        self.window?.rootViewController = mainVC
+        let mainViewController = MainViewController.loadFromNib()
+        self.window?.rootViewController = mainViewController
     }
 
 }

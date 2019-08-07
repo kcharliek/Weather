@@ -48,20 +48,28 @@ internal class WeatherPageControl: UIView {
     }
 
     private func initView() {
-        self.addSubview(self.stackView)
         self.isUserInteractionEnabled = false
+        self.setupStackView()
+    }
+
+    // MARK: - private
+
+    private let stackView: UIStackView = UIStackView(frame: .zero)
+
+    private func setupStackView() {
+        self.addSubview(self.stackView)
 
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.axis = .horizontal
+        self.stackView.distribution = .equalSpacing
+        self.stackView.alignment = .center
+        self.stackView.spacing = Constant.spacing
 
         NSLayoutConstraint.activate([
             self.stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             self.stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
-
-    // MARK: - private
-
-    private let stackView: UIStackView = UIStackView(frame: .zero)
 
     private func selectPage(_ page: Int) {
         guard page < self.stackView.arrangedSubviews.count else {
@@ -83,12 +91,6 @@ internal class WeatherPageControl: UIView {
         (0..<self.numberOfPages)
             .map(createPage)
             .forEach(self.stackView.addArrangedSubview)
-
-        self.stackView.axis = .horizontal
-        self.stackView.distribution = .equalSpacing
-        self.stackView.alignment = .center
-        self.stackView.spacing = Constant.spacing
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
 
         self.selectPage(self.currentPage)
     }

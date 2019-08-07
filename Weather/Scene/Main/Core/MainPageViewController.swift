@@ -21,11 +21,19 @@ class MainPageViewController: UIPageViewController {
 
     internal weak var mainDelegate: MainPageViewControllerDelegate?
 
+    internal func setupCurrentWeatherPage() {
+        guard self.currentWeatherPage == nil else {
+            return
+        }
+        let currentWeatherPage = WeatherViewController.loadFromNib()
+        self.pages.append(currentWeatherPage)
+        self.setViewControllers([currentWeatherPage], direction: .forward, animated: false, completion: nil)
+    }
+
     internal func addPage(for model: Placemark) {
         let weatherViewController = WeatherViewController.loadFromNib()
-        weatherViewController.model = model
+        weatherViewController.set(model: model)
         self.pages.append(weatherViewController)
-        self.reloadData()
     }
 
     internal func removePage(for model: Placemark) {
@@ -58,14 +66,35 @@ class MainPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.dataSource = self
-        self.delegate = self
+        self.setupPageViewController()
+        self.registerNotification()
     }
 
     // MARK: - private
 
     private var pages: [UIViewController] = []
     private var nextIndex: Int = 0
+    private var currentWeatherPage: WeatherViewController? {
+        return self.pages.first as? WeatherViewController
+    }
+
+    private func setupPageViewController() {
+        self.dataSource = self
+        self.delegate = self
+    }
+
+    private func registerNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleDidChangeCurrentLocationNotification(_:)), name: .didChangeCurrentLocation, object: nil)
+    }
+
+    @objc
+    private func handleDidChangeCurrentLocationNotification(_ notification: Notification) {
+         guard let updatedPlacemark = notification.object as? Placemark else {
+            return
+        }
+
+        self.currentWeatherPage?.set(model: updatedPlacemark)
+    }
 
     private func reloadData() {
         if pages.count == 1 {
@@ -84,7 +113,7 @@ class MainPageViewController: UIPageViewController {
 extension MainPageViewController: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let index: Int = self.pages.index(of: viewController) else {
+        guard let index: Int = self.pages.firstIndex(of: viewController) else {
             return nil
         }
 
@@ -92,7 +121,7 @@ extension MainPageViewController: UIPageViewControllerDataSource, UIPageViewCont
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let index: Int = self.pages.index(of: viewController) else {
+        guard let index: Int = self.pages.firstIndex(of: viewController) else {
             return nil
         }
 
@@ -102,7 +131,7 @@ extension MainPageViewController: UIPageViewControllerDataSource, UIPageViewCont
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         guard
             let first = pendingViewControllers.first,
-            let index: Int = self.pages.index(of: first)
+            let index: Int = self.pages.firstIndex(of: first)
         else {
             return
         }

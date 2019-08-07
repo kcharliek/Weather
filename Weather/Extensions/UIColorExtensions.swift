@@ -16,3 +16,9 @@ extension UIColor {
     }
 
 }
+
+enum Color {
+
+    static let darkBlue = UIColor(r: 0, g: 6, b: 177, a: 1)
+
+}

@@ -24,6 +24,11 @@ class MainViewController: UIViewController {
         self.setupController()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateCurrentPlacemark()
+    }
+
     // MARK: - action
 
     @IBAction
@@ -43,15 +48,17 @@ class MainViewController: UIViewController {
     private let pageViewController = MainPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 
     private func setupController() {
-        self.view.backgroundColor = .blue
+        self.view.backgroundColor = Color.darkBlue
+
         self.setupPageControl()
         self.setupPageViewController()
         self.setupWeatherPages()
     }
 
-    func setupFollowingPlacemarkPage() {
-        let cities: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
-        cities.forEach(self.addPage)
+    private func updateCurrentPlacemark() {
+        LocationManager.shared.requestCurrentPlacemark(completion: { result in
+            result.handleFailure(self.showErrorToast)
+        })
     }
 
     private func setupPageViewController() {
@@ -64,24 +71,18 @@ class MainViewController: UIViewController {
     }
 
     private func setupWeatherPages() {
-        LocationManager.shared.requestCurrentPlacemark { [weak self] (result) in
-            guard let self = self else { return }
-            result
-                .handleSuccess {
-                    self.view.isUserInteractionEnabled = true
-                    self.addPage(with: $0)
-                    self.setupFollowingPlacemarkPage()
-                }
-                .handleFailure {
-                    self.view.isUserInteractionEnabled = false
-                    self.showErrorToast(with: $0)
-                }
+        self.setupCurrentWeatherPage()
+        self.setupFollowingCityPages()
+    }
 
+    private func setupCurrentWeatherPage() {
+        self.pageViewController.setupCurrentWeatherPage()
+        self.pageControl.numberOfPages += 1
+    }
 
-            
-
-//            self.setupFollowingPlacemarkPage()
-        }
+    private func setupFollowingCityPages() {
+        let cities: [Placemark] = Defaults.shared.value(forKey: .cities) ?? []
+        cities.forEach(self.addPage)
     }
 
     private func setupPageControl() {
@@ -103,6 +104,7 @@ class MainViewController: UIViewController {
         self.pageViewController.selectPage(for: placemark)
     }
 
+    // TODO: Window에 직접 Toast 띄우기
     private func showErrorToast(with error: Error) {
         var iteration = 0
         let maximumRecursion = 10

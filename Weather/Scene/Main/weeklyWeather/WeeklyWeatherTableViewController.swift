@@ -11,11 +11,11 @@ import UIKit
 
 class WeeklyWeatherTableViewController: UITableViewController {
 
-    private let cellHeight: CGFloat = 44
+    internal static let cellHeight: CGFloat = 44
 
     // MARK: - internal
 
-    func set(models: [Weather]) {
+    internal func set(models: [Weather]) {
         self.models = models
         self.tableView.reloadData()
     }
@@ -57,7 +57,7 @@ extension WeeklyWeatherTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.cellHeight
+        return WeeklyWeatherTableViewController.cellHeight
     }
 
 }

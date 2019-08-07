@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C410B75622F44B79007C2822 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B75522F44B79007C2822 /* LaunchScreenViewController.swift */; };
 		C410B75822F44C2E007C2822 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B75722F44C2E007C2822 /* UIViewControllerExtensions.swift */; };
 		C410B75C22F44EE5007C2822 /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B75B22F44EE5007C2822 /* MainPageViewController.swift */; };
 		C410B75E22F45140007C2822 /* HourlyWeatherCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410B75D22F45140007C2822 /* HourlyWeatherCollectionViewController.swift */; };
@@ -86,7 +85,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C410B75522F44B79007C2822 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		C410B75722F44C2E007C2822 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		C410B75B22F44EE5007C2822 /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		C410B75D22F45140007C2822 /* HourlyWeatherCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCollectionViewController.swift; sourceTree = "<group>"; };
@@ -176,14 +174,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C410B75422F44B60007C2822 /* LaunchScreen */ = {
-			isa = PBXGroup;
-			children = (
-				C410B75522F44B79007C2822 /* LaunchScreenViewController.swift */,
-			);
-			path = LaunchScreen;
-			sourceTree = "<group>";
-		};
 		C410B76622F456BD007C2822 /* HourlyWeather */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +187,7 @@
 		C410B76822F48D01007C2822 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				C47732F322F1C1F700EC1D2A /* Info.plist */,
 				C47732EB22F1C1F600EC1D2A /* Main.storyboard */,
 				C47732EE22F1C1F700EC1D2A /* Assets.xcassets */,
 				C47732F022F1C1F700EC1D2A /* LaunchScreen.storyboard */,
@@ -258,6 +249,8 @@
 		C47732E622F1C1F600EC1D2A /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				C47732E722F1C1F600EC1D2A /* AppDelegate.swift */,
+				C4C7420122FA8C2E008CB8A6 /* Support */,
 				C477330922F1C2F200EC1D2A /* Scene */,
 				C410B76922F48D53007C2822 /* View */,
 				C477332F22F1D16800EC1D2A /* Model */,
@@ -265,9 +258,6 @@
 				C477332322F1C69700EC1D2A /* Networking */,
 				C477334522F1E17D00EC1D2A /* Util */,
 				C410B76822F48D01007C2822 /* Resource */,
-				C47732E722F1C1F600EC1D2A /* AppDelegate.swift */,
-				C477332422F1C7CA00EC1D2A /* ForecastCenter.swift */,
-				C47732F322F1C1F700EC1D2A /* Info.plist */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -286,7 +276,6 @@
 			children = (
 				C477330F22F1C32600EC1D2A /* Main */,
 				C410B77622F545BF007C2822 /* CityList */,
-				C410B75422F44B60007C2822 /* LaunchScreen */,
 				C4F745BA22F3E932000E6A2A /* CitySearch */,
 			);
 			path = Scene;
@@ -310,6 +299,7 @@
 				C4D7BAE622F2F74F00D6C3BF /* Base */,
 				C4D7BAF022F3405500D6C3BF /* ForecastAPI */,
 				C477333622F1D39500EC1D2A /* DarkSky */,
+				C477332422F1C7CA00EC1D2A /* ForecastCenter.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -410,6 +400,13 @@
 				C47864CD22F706660083C915 /* CurrentWeatherInfoViewController.xib */,
 			);
 			path = CurrentWeatherInfo;
+			sourceTree = "<group>";
+		};
+		C4C7420122FA8C2E008CB8A6 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		C4D7BAE622F2F74F00D6C3BF /* Base */ = {
@@ -575,7 +572,6 @@
 				C477332E22F1D14300EC1D2A /* Forecast.swift in Sources */,
 				C477333822F1D69F00EC1D2A /* DarkSkyFetchForecastRequest.swift in Sources */,
 				C4E4CCD922F998A000BFB679 /* TemperatureHelper.swift in Sources */,
-				C410B75622F44B79007C2822 /* LaunchScreenViewController.swift in Sources */,
 				C4E4CCDB22F9B86300BFB679 /* UIAlertControllerExtensions.swift in Sources */,
 				C410B78022F554C4007C2822 /* NoticiationName.swift in Sources */,
 				C410B76D22F51B5E007C2822 /* Image.swift in Sources */,
@@ -778,14 +774,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4HQ6PG585Q;
-				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Weather/Resource/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chk.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -796,14 +793,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4HQ6PG585Q;
-				INFOPLIST_FILE = Weather/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Weather/Resource/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chk.Weather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

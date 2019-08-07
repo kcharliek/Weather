@@ -37,18 +37,16 @@ class CurrentWeatherInfoViewController: UIViewController {
         self.uvLabel.text = model.uvIndex.stringValue
     }
 
-    func compass(from windBearing: Double) -> String {
-        let compassValue = Int(floor((windBearing / 22.5) + 0.5))
-        let compass = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
-        let compassIndex = compassValue % 16
-        
-        return compass[safe: compassIndex] ?? "--";
-    }
-
     // MARK: - private
 
     private var model: Weather?
 
+    private func compass(from windBearing: Double) -> String {
+        let compassValue = Int(floor((windBearing / 22.5) + 0.5))
+        let compass = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+        let compassIndex = compassValue % 16
 
+        return compass[safe: compassIndex] ?? "--";
+    }
 
 }
